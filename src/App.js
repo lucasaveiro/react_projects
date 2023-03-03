@@ -1,6 +1,10 @@
 import { Component } from 'react';
+import CardList from './component/card-list/card-list.component';
+import SearchBox from './component/search-box/search-box.component';
 import './App.css';
 
+// This is creating a class component called App that extends the Component class from React
+// It is initializing the state of the App component with an empty monsters array and an empty searchField string
 class App extends Component {
   constructor() {
     super();
@@ -18,8 +22,6 @@ class App extends Component {
       .then((response) => response.json())
       .then((users) => this.setState(() =>{
         return {monsters: users}
-      }, () => {
-        console.log(this.state);
       }
       ))
       .catch(error => console.error(error))
@@ -28,7 +30,8 @@ class App extends Component {
   // This 'event' is an object that contains information of the 'onChange' event
   // 'event.target.value' is the value inside the input when the 'event'->'onChange' changes
   // this.setState is necessary to update the state and the react will re-render with this change
-  handleChange = (event) => {
+  onSearchChange = (event) => {
+    const searchField = event.target.value.toLocaleLowerCase();
     this.setState({ searchField: event.target.value});
   }
 
@@ -43,18 +46,14 @@ class App extends Component {
     monster.name.toLowerCase().includes(searchField.toLowerCase()));
 
     return (
-      <div className="App">
-      <input className='search-box' 
-      type='search' 
-      placeholder='search monsters' 
-      onChange={this.handleChange} />
-
-    {
-      filteredMonsters.map((monster)=>{
-        return <h1 key={monster.name}>{monster.name}</h1>;
-      })
-    }
-      </div>
+    <div className='App'>
+      <SearchBox 
+        className='monsters-search-box'
+        onChangeHandler={this.onSearchChange} 
+        placeholder='search' 
+      />
+      <CardList monsters={filteredMonsters} />
+    </div>
     )}
 }
 
