@@ -3,6 +3,13 @@ import CardList from './component/card-list/card-list.component';
 import SearchBox from './component/search-box/search-box.component';
 import './App.css';
 
+
+const App = () => {
+  return (
+    
+  )
+}
+
 // This is creating a class component called App that extends the Component class from React
 // It is initializing the state of the App component with an empty monsters array and an empty searchField string
 class App extends Component {
@@ -47,6 +54,7 @@ class App extends Component {
 
     return (
     <div className='App'>
+      <h1 className='app-title'> Monsters Rolodex </h1>
       <SearchBox 
         className='monsters-search-box'
         onChangeHandler={this.onSearchChange} 
